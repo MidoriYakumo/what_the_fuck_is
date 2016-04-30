@@ -1,0 +1,30 @@
+#! /bin/bash
+if [ $1 ]; then
+	export __arg=$1
+	export __root=1
+	shift
+	echo "[`./what_the_fuck_is-jsonarray`]" | python -mjson.tool
+	exit
+fi
+if [ `echo $__arg | grep -e "^\w\+$"` ]; then
+	___="_${__arg,,}"
+	if [ -z ${!___} ]; then
+		if [ "`whatis $__arg 2>/dev/null`" ]; then
+			[ -e $__root ] && echo -n "," || export __root=
+			echo -n "\"$__arg\",["
+			export $___=1
+			__first=1
+			for i in `whatis $__arg 2>/dev/null`;do
+				[ $__first == "1" ] && __first=0 && echo -n "\"$i\"" && continue
+				export __arg=$i
+				source ./what_the_fuck_is-jsonarray
+			done
+			echo -n "]"
+		else
+			echo -n ",\"$__arg\""
+		fi
+	else
+		# explained word
+		echo -n ",\"$__arg\""
+	fi
+fi

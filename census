@@ -1,0 +1,3 @@
+for cmd in `compgen -ac`;do
+	echo $cmd `./what_the_fuck_is $cmd|wc`
+done

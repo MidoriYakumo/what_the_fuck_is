@@ -1,0 +1,14 @@
+#! /bin/bash
+ $1 ] && __arg=$1
+if [ `echo $__arg | grep -e "^\w\+$"` ]; then
+	___="_$__arg"
+	if [ -z ${!___} ]; then
+		shift
+		echo -n "$__arg "
+		export $___=1
+		for i in `whatis $__arg 2>/dev/null`;do
+			export __arg=$i
+			source ./what_the_fuck_is
+		done
+	fi
+fi

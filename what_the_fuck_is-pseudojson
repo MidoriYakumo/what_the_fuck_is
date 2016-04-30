@@ -1,0 +1,25 @@
+#! /bin/bash
+if [ $1 ]; then
+	export __arg=$1
+	shift
+	echo -n "["
+	./what_the_fuck_is-pseudojson
+	echo -en "\b]"
+	exit
+fi
+if [ `echo $__arg | grep -e "^\w\+$"` ]; then
+	___="_$__arg"
+	if [ -z ${!___} ]; then
+		echo -n "\"$__arg\""
+		if [ "`whatis $__arg 2>/dev/null`" ]; then
+			echo -n ":["
+			export $___=1
+			for i in `whatis $__arg 2>/dev/null`;do
+				export __arg=$i
+				source ./what_the_fuck_is-pseudojson
+			done
+			echo -ne "\b]"
+		fi
+		echo -n ","
+	fi
+fi
