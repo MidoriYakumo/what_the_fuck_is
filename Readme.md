@@ -8,9 +8,9 @@ what is what?
 what (1ast)          - display binary identification strings
 what (1p)            - identify SCCS files (DEVELOPMENT)
 ```
-ok, I see, so what is display? binary? file? ...
+ok, I see, so what is display? binary? strings? ...
 
-By running `./what_the_fuck_is what` ~~you can get all your answer~~, you get a fully expanded answer like this:
+By running `./what_the_fuck_is what` ~~you can get all your answer~~, with a fully expanded response like this:
 
 ```
 > ./what_the_fuck_is what
@@ -47,28 +47,24 @@ A beatiful version expand in json (by Python json.tool), so it get easier to rea
 
 ```
 
+what_the_fuck_is-dot
+---
+Display in dot directed graph `> ./what_the_fuck_is-dot netcat`
+
+![](./netcat.jpg)
+
 census
 ---
 census provide wordcounts of all commands available in your path (by compgen):
 ```
 ...
-builtin 0 5 36
-caller 0 5 35
-cd 0 9 57
-command 0 12 82
-compgen 0 5 36
-complete 0 5 37
-compopt 0 5 36
-continue 0 11 72
-declare 0 5 36
-dirs 0 5 33
-disown 0 5 35
-echo 0 51 330
-enable 0 5 35
-eval 0 25 169
-exec 0 33 232
-exit 0 19 119
-export 0 44 279
+fc 0 170 1269
+fg 0 28 164
+getopts 0 13 92
+hash 0 188 1419
+popd 0 6 37
+printf 0 207 1556
+cameratopam 0 276 2061
 ...
 ```
 

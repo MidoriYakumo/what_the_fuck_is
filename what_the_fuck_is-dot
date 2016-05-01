@@ -1,0 +1,30 @@
+#! /bin/bash
+if [ $1 ]; then
+	export __arg=$1
+	shift
+	echo "digraph what_the_fuck_is_this {`./what_the_fuck_is-dot`}" | dot -Tjpg > "$__arg.jpg"
+	exit
+fi
+if [ `echo $__arg | grep -e "^\w\+$"` ]; then
+	___="_${__arg,,}"
+	if [ -z ${!___} ]; then
+		p=
+		if [ "`whatis $__arg 2>/dev/null`" ]; then
+			for i in `whatis $__arg 2>/dev/null`;do
+				[ $i == "graph" ] && continue
+				[ $i == "node" ] && continue
+				if [ `echo $i | grep -e "^\w\+$"` ]; then
+					[ $i != $__arg ] && [ $p ] && echo "  $p -> $i [dir=none];"
+					[ $i != $__arg ] && echo "  $i -> $__arg;" && p=$i
+				fi
+			done
+			export $___=1
+			for i in `whatis $__arg 2>/dev/null`;do
+				[ $i == "graph" ] && continue
+				[ $i == "node" ] && continue
+				export __arg=$i
+				source ./what_the_fuck_is-dot
+			done
+		fi
+	fi
+fi
